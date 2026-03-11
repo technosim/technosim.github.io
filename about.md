@@ -4,12 +4,11 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Infrastructure Systems & Network Engineer with a bit too much excitement for new infra tech, creating, breaking, fixing and learning.
 
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+### My interests
+Project management, network automation, cloud, security. I excel at building robust, resilient, secure and cost-efficient network and server infrastructure.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+No
