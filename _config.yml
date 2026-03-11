@@ -2,6 +2,9 @@
 # This file contains configuration flags to customize your site
 #
 
+
+timezone: Australia/Sydney
+
 # Name of your site (displayed in the header)
 name: TechnoSim
 
