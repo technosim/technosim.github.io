@@ -288,6 +288,12 @@ footer {
 @import "highlights";
 @import "svg-icons";
 
+div.highlight {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+}
 
 div.highlight pre {
     background-color: #f4f4f4;
