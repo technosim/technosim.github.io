@@ -37,7 +37,7 @@ Enter your custom domain using the **www** prefix.
 Do not use a naked domain.  
 Use `www.technosim.me` instead.
 
-![Azure Portal Screenshot](images/2025-12-24-Godaddy-Azure-SWA/godaddy1.png)
+![Azure Portal Screenshot](/images/2025-12-24-Godaddy-Azure-SWA/godaddy1.png)
 
 ---
 
@@ -53,7 +53,7 @@ From your GoDaddy portal:
 
 After DNS propagation, your site will load via the `www` domain.
 
-![GoDaddy DNS Screenshot](images/2025-12-24-Godaddy-Azure-SWA/godaddy2.png)
+![GoDaddy DNS Screenshot](/images/2025-12-24-Godaddy-Azure-SWA/godaddy2.png)
 
 ---
 
@@ -68,4 +68,4 @@ In GoDaddy:
 
 This forwards the naked domain to `www`.
 
-![Forwarding Screenshot](images/2025-12-24-Godaddy-Azure-SWA/godaddy3.png)
+![Forwarding Screenshot](/images/2025-12-24-Godaddy-Azure-SWA/godaddy3.png)
