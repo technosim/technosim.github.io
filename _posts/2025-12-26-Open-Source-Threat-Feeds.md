@@ -2,6 +2,7 @@
 layout: post
 title: Dynamically Block Bad Actors with Open-Source Threat Feeds
 date: 2025-12-26
+categories: Security
 ---
 Open-source threat feeds are dynamically updated, public lists of bad actors or threats.  
 Among these threat feeds, you can find lists of public IP addresses with a poor reputation, typically identified automatically using honeypots and other techniques. Common sources include:

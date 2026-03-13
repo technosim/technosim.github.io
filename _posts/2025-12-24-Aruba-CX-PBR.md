@@ -2,6 +2,7 @@
 layout: post
 title: Aruba AOS-CX Policy Based Routing (PBR)
 date: 2025-12-24
+categories: Networking
 ---
 
 Ensure that all traffic originating from `10.199.0.0/16` subnet will be sent to a firewall as the next hop, rather than through the default route. 

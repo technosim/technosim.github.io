@@ -2,6 +2,7 @@
 layout: post
 title: Configure a GoDaddy custom domain for Azure Static Web App
 date: 2025-12-24
+categories: Cloud
 ---
 
 In this post we are going to outline the setup required to use a GoDaddy domain on Azure Static Web App (SWA).

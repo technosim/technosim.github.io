@@ -2,6 +2,7 @@
 layout: post
 title: Save on Azure IaaS cost by keeping ad-hoc Virtual Machines in blob storage
 date: 2026-01-06
+categories: Cloud
 ---
 
 This post is going to walk you through how to create a **snapshot** of an Azure VM disk for **short term** storage, and exporting the snapshot to **VHD** for **long term** storage in Azure blob container. Then the process to restore the VM from snapshot or VHD. 
