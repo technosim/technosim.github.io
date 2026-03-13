@@ -1,23 +1,47 @@
 
 //
-// VARIABLES
+// VARIABLES — Ubuntu Theme
 //
 
-// Colors
-$blue: #4183C4;
+// Ubuntu Brand Colors
+$ubuntu-orange:        #E95420;
+$ubuntu-orange-hover:  #FF6600;
+$ubuntu-orange-dark:   #D6491A;
 
-// Grays
-$black: #000;
+// Ubuntu Sidebar Purple Gradient
+$ubuntu-purple-dark:   #3D0033;
+$ubuntu-purple-mid:    #77216F;
+$ubuntu-purple-light:  #AE7DA8; // for subtle accents if needed
+
+// Neutrals
+$black:      #000;
 $darkerGray: #222;
-$darkGray: #333;
-$gray: #666;
-$lightGray: #eee;
-$white: #fff;
+$darkGray:   #333;
+$gray:       #666;
+$lightGray:  #eee;
+$white:      #fff;
 
-// Font stacks
-$helvetica: Helvetica, Arial, sans-serif;
+// Header/Nav background (dark, matching Blazor top-row/sidebar)
+$header-bg:          $ubuntu-purple-dark;
+$header-bg-gradient: linear-gradient(135deg, $ubuntu-purple-dark 0%, $ubuntu-purple-mid 100%);
+
+// Text on dark header
+$header-text:        #d7d7d7;
+$header-text-active: #ffffff;
+
+// Link colors
+$link-color:       $ubuntu-orange;
+$link-hover-color: $ubuntu-orange-hover;
+
+// Font stacks (matching Blazor app.css)
+$helvetica:    Helvetica, Arial, sans-serif;
 $helveticaNeue: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$georgia: Georgia, serif;
+$georgia:      Georgia, serif;
+$mono:         'Consolas', 'Monaco', 'Courier New', monospace;
+
+// Code block accent (blue left-border, matching Blazor)
+$code-border:  #4ca0ef;
+$code-bg:      #f4f4f4;
 
 // Mobile breakpoints
 @mixin mobile {
