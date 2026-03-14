@@ -5,7 +5,7 @@ date: 2026-03-13
 categories: Networking
 ---
 
-Intra-vlan multicast is simple, just let default IGMP configuration do the work. But, having the traffic pass through a Firewall and Switch to be routed with Protocol Independant Multicast (PIM) introduced more of a challenge.
+Intra-vlan multicast is simple, just let default IGMP configuration do the work. But, having the traffic pass through a Firewall and Switch to be routed with Protocol Independant Multicast (PIM) introduces more of a challenge.
 While it is still pretty straight forward with PIM, what I found is a limitation in FortiOS versions below 7.6.
 
 ## Documentation 
@@ -36,10 +36,10 @@ https://datatracker.ietf.org/doc/html/rfc3973
 
 https://www.rfc-editor.org/rfc/rfc2365
 
-# My Setup
-Using VLC I stream to UDP 238.1.2.3:1234 from server 192.168.100.1 to receiver 10.10.100.1 via routed multi-vendor network.
+## The Setup
+Using VLC I stream to **UDP 238.1.2.3:1234** from server `192.168.100.1` to receiver `10.10.100.1` via routed multi-vendor network.
 
-![UDP Stream Setup](images/2026-03-14-Aruba-FortiNet-Multicast-Routing/1-multicast-setup.jpg)
+![UDP Stream Setup](/images/2026-03-14-Aruba-FortiNet-Multicast-Routing/1-multicast-setup.jpg)
 
 **From server, kill and restart stream:**
 ```
@@ -51,7 +51,7 @@ vlc -vvv sample.mp4 --sout udp:238.1.2.3:1234 --ttl 12
 For TTL in GUI: Generated stream output string section, look for `dst=238.1.2.3:1234`
 Manually prepend TTL parameter so it looks like `{access=udp{ttl=12},mux=ts,dst=238.1.2.3:1234}`
 
-**From receiver**
+**From receiver**:  
 VLC > Media > Network stream udp://@238.1.2.3:1234 
 
 ## Breaking it down:
@@ -61,11 +61,11 @@ VLC > Media > Network stream udp://@238.1.2.3:1234
 3. And enable pim on all L3 hops in the path
 4. Need IGMP on L2 facing the receiver so they can join the group
 5. Run a stream and use show commands to verify end to end stream connectivity
-6. You may need unicast connectivity for PIM reverse path forwarding calulculation RPF - I found not required in my testing.
+6. You may need unicast connectivity for PIM reverse path forwarding calulculation RPF - I found not required in my testing
 
 ## Multicast Notes:
 - The first 24 bits of a multicast MAC address always start with 01:00:5E
-- There are 3 versions of IGMP. Backwards compatible.
+- There are 3 versions of IGMP. v3 is backwards compatible with v2.
 - The switch facing the receiver needs IGMP. Default version v3 on Aruba CX
 - with PIM-SM you need to designate an RP but can be dynamic
 - Seems default behavior for Multicast stream is with **TTL=1**, this needs to be changed to support multihop with PIM.
@@ -220,65 +220,68 @@ interface vlan 100
 
 # Test, Validate and Diag
 
-Confirm there is a PIM neighbourship on the switch:
+Confirm there is a PIM neighbourship on the switch:  
 `show ip pim neighbor`
 
 **When stream is running:**
 
-Confirm the FortiGate has a route for 238.1.2.3
+Confirm the FortiGate has a route for 238.1.2.3:  
 `get router info multicast table`
 
-Confirm the switch has a route for 238.1.2.3
+Confirm the switch has a route for 238.1.2.3:  
 `show ip pim mroute`
 
-Check the switch has received IGMP Join from receiver
+Check the switch has received IGMP Join from receiver:  
 `show ip igmp`
 
-For further troubleshooting on the FortiGate, use Network > Diagnostics > Debug Flow.
+For further troubleshooting on the FortiGate, use **Network** > **Diagnostics** > **Debug Flow**
 
 You need an IGMP Querier - on AOS-S this is done by simply configuring an IP address on the vlan.
-If no IP, the switch does not participate in the querier election. I believe this is not the same for most switch vendors, instead an ip address configured on the vlan is required i.e SVI.
+If no IP, the switch does not participate in the querier election. I believe this is not the same for most switch vendors, instead an ip address configured on the vlan is required i.e an SVI.
 
 
 `show ip igmp vlan 100 config`
 
-shows port mode 'auto', test with override to forward:
+shows port mode 'auto', test with override to forward:  
 `vlan 100 ip igmp forward 1`
 `show ip igmp vlan 100 group 238.1.2.3`
 
-Test with proxy IGMP to the FW
+Test with proxy IGMP to the FW  
 `igmp-proxy-domain some.domain 10.10.105.250 238.1.2.3 238.1.2.3`
 
-Static group floods all multicast traffic to every port on the vlan, test with:
+Static group floods all multicast traffic to every port on the vlan, test with:  
 `vlan 100`
     `ip igmp static-group 238.1.2.3`
 
 
 `show ip igmp statistics`
 
-`ip arp-mcast-replies` Enables acceptance of multicast MAC addresses in the IP multicast address range in ARP requests and replies.
+Enables acceptance of multicast MAC addresses in the IP multicast address range in ARP requests and replies:  
+`ip arp-mcast-replies` 
 
-Validate next hop on the firewall:
+Validate next hop on the firewall:  
 `get router info multicast pim sparse-mode next-hop`
 
 # The catch with FortiOS
 
-- FortiOS Documentation 7.2 "Multicast routing and PIM support" - no mention of VRF.
+- FortiOS documentation 7.2 "Multicast routing and PIM support" - **no mention of VRF, supported or otherwise**
 
-- Same in 7.4 Documentation.
+- Same in 7.4 documentation.
 
 - But in 7.6:
->PIM supports all VRFs and is aware of IPv4 multicast routing and forwarding over a single overlay, enhancing network scalability and flexibility **compared to the previous VRF 0-only support.**
+>PIM supports all VRFs and is aware of IPv4 multicast routing and forwarding over a single overlay, enhancing network scalability and flexibility compared to the previous VRF 0-only support.
+
+**compared to the previous VRF 0-only support.** - this is what verified my issue.
 
 **FortiOS <7.6 only supports PIM in VRF 0.**
-I found that since I was using VRF-1 for routing this stream, it would fail because the PIM process only runs under VRF-0, it had the incorrect next hop, using the incorrect routing table. Even if both interfaces are in VRF-1 it will still operate under VRF-0 without clear indication.
+I found that since I was using VRF-1 for routing this stream, it would fail because the PIM process only runs under VRF-0, it had the incorrect next hop (the smoking gun), using the incorrect routing table. Even if all PIM interfaces are in VRF-1 it will still operate under VRF-0 without clear indication.
 
 > **NOTE**
 > At the time of writing this, **FortiManager** does not support FortiOS 7.6. If you are using FortiManager, your only option is to flip VRFs so that the stream is running under VRF-0 routing table.
 
-Multicast route leaking between vrf? Not supported, unicast only.
+Multicast route leaking between vrf? Not supported, unicast only.  
 
-### igmp, rp and bsr candidate
-Not required since we have static RP. 
-IGMP also should not be required on the firewall but seems like it is enforced
-vlan 100 ip igmp forward 1 # also not required
+### IGMP, RP and BSR Candidate
+Not required since we have static RP.  
+IGMP also should not be required on the firewall in this setup but seems like it is enforced  
+`vlan 100 ip igmp forward 1` # also not required
