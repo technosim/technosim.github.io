@@ -4,7 +4,6 @@ title: Optimize WiFi coverage for high interference environments
 date: 2026-03-30
 categories: Networking
 ---
-# Optimising Wi-Fi coverage in high interference environments
 
 Shared commercial or retail areas are a challenge for WiFi when sharing RF space with neighbouring tenants, customer mobile hotspots, and Bluetooth devices wall to wall. This interference falls into two categories:
 
