@@ -28,6 +28,7 @@ Instead, do a quick WiFi scan with something like WiFi Analyzer or Ekahau Sideki
 
 On 5 GHz, prefer UNII-1 and UNII-3 (channels 36–48 and 149–165). Avoid DFS channels where possible, radar detection events trigger channel changes and cause brief outages. Leave as many channels unused as your plan allows to maximise channel reuse distance.
 
+This being said, I have found Aruba ARM (Adaptive Radio Management) to sometimes perform better than manual channel assignment. Experiment with both.
 ---
 
 ## Configuration
@@ -60,7 +61,7 @@ The trade-off is that you need sufficient AP density to maintain coverage. In a 
 
 Many small tenants are running a default-config D-Link or TP-Link router, transmitting at full power because nobody told them otherwise. Some might even have cranked the TX power intentionally, not realising it degrades performance for everyone including themselves.
 
-It sounds unusual, but approaching a neighbouring store and politely asking them to dial back their transmit power can genuinely help. Frame it as mutual benefit.
+It sounds unusual, but approaching a neighbouring and politely asking them to dial back their transmit power can genuinely help. Frame it as mutual benefit.
 
 ---
 
