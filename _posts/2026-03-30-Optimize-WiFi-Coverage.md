@@ -16,6 +16,9 @@ When raw throughput isn't the goal and coverage reliability is, noise floor mana
 
 ## Deployment and planning
 
+There is huge amounts of info about AP placement planning, cell overlap targets, height, obstruction, ceiling vs wall mount, all this kind of thing. I don't intend to cover that here.  
+Rather, I am sharing information that I have found helpful when addressing performance in wireless networks that had already been deployed, by someone else, many years ago.
+
 ### Commit to 5 GHz and 6 GHz
 
 The 2.4 GHz band is essentially unusable in dense retail environments. Every neighbouring store, everyone is already there. 5 GHz offers far more non-overlapping channels, and 6 GHz is still largely clear in most venues.
@@ -47,7 +50,7 @@ In a large space where coverage quality varies, keeping clients on the best AP a
 
 Use 20 or 40 MHz. Avoid 80 MHz and wider, channel bonding increases your vulnerability to interference.
 
-### Turn down TX power
+### Disable auto TX power, turn it down
 
 Maybe counterintuitive but reducing AP transmit power can improve performance in high interference environments. Lower TX power means:
 
@@ -57,6 +60,10 @@ Maybe counterintuitive but reducing AP transmit power can improve performance in
 
 The trade-off is that you need sufficient AP density to maintain coverage. In a high interference environment, more lower-power APs is almost always better than fewer high-power ones.
 
+### Configure Interference Immunity Level
+An Aruba setting configured to improve performance in high-noise environments by making the radio less sensitive to non-802.11 interference, so for stabilising channel selection.
+Check your vendor for a similar feature.
+
 ### Talk to your neighbours
 
 Many small tenants are running a default-config D-Link or TP-Link router, transmitting at full power because nobody told them otherwise. Some might even have cranked the TX power intentionally, not realising it degrades performance for everyone including themselves.
@@ -65,8 +72,8 @@ It sounds unusual, but approaching a neighbouring and politely asking them to di
 
 ---
 
-## General best practices
+## Other general best practices
 
-- Disable 2.4 GHz entirely if clients support 5/6 GHz
+- Disable 2.4 GHz entirely if clients support 5/6 GHz, or at the very least **use band steering** to prefer 5/6Ghz
 - Limit advertised SSIDs to three or less, every SSID adds beacon overhead across all APs
 - Enable Multicast-to-Unicast conversion where supported, to reduce broadcast overhead and improve reliability for multicast traffic
