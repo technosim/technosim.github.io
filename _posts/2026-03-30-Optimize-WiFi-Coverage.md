@@ -29,7 +29,8 @@ Automatic channel selection tends to perform poorly in high interference environ
 
 Instead, do a quick WiFi scan with something like WiFi Analyzer or Ekahau Sidekick, map out what your neighbours are using, and assign channels manually around that. iOS has Apples "Airport Utility" which can do the job ok too.
 
-On 5 GHz, prefer UNII-1 and UNII-3 (channels 36–48 and 149–165). Avoid DFS channels where possible, radar detection events trigger channel changes and cause brief outages. Leave as many channels unused as your plan allows to maximise channel reuse distance. 
+On 5 GHz, prefer UNII-1 and UNII-3 (channels 36–48 and 149–165). Avoid DFS channels where possible, radar detection events trigger channel changes and cause brief outages. Leave as many channels unused as your plan allows to maximise channel reuse distance.  
+
 This being said, I have found Aruba ARM (Adaptive Radio Management) to sometimes perform better than manual channel assignment. Experiment with both.
 
 ---
