@@ -23,32 +23,7 @@ Enable paste-like behavior for systems that do not support clipboard paste but a
 
 ```
  function ConvertTo-SendKeysLiteralChar {
-    param([char]$c)
-    switch ($c) {
-        '{' { return '{{}' }   # literal {
-        '}' { return '{}}' }   # literal }
-        '+' { return '{+}' }
-        '^' { return '{^}' }
-        '%' { return '{%}' }
-        '~' { return '{~}' }
-        '(' { return '{(}' }
-        ')' { return '{)}' }
-        default { return [string]$c }
-    }
-}
-try {
-    Add-Type -AssemblyName System.Windows.Forms
-    # Give yourself time to click into the VMware console field
-    Start-Sleep -Seconds 3
-    $text = Get-Clipboard -Raw
-    foreach ($c in $text.ToCharArray()) {
-        [System.Windows.Forms.SendKeys]::SendWait((ConvertTo-SendKeysLiteralChar $c))
-        Start-Sleep -Milliseconds 10   # tweak up if the console drops chars
-    }
-}
-finally {
-    Add-Type -AssemblyName System.Windows.Forms
-    [System.Windows.Forms.Clipboard]::Clear()
+
 }
 ```
 
