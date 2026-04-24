@@ -20,10 +20,10 @@ Enable paste-like behavior for systems that do not support clipboard paste but a
 - Microsoft PowerToys (running)
 - PowerShell script saved locally, e.g.
   C:\Scripts\PasteClipboardSendKeys.ps1  
-```
-{% raw %}
 
- function ConvertTo-SendKeysLiteralChar {
+{% raw %}
+```
+function ConvertTo-SendKeysLiteralChar {
     param([char]$c)
     switch ($c) {
         '{' { return '{{}' }   # literal {
@@ -51,9 +51,9 @@ finally {
     Add-Type -AssemblyName System.Windows.Forms
     [System.Windows.Forms.Clipboard]::Clear()
 }
-
-{% endraw %}
 ```
+{% endraw %}
+
 ---
 
 ## PowerToys Setup (Keyboard Manager)
@@ -66,7 +66,7 @@ finally {
 
 ### Program
 ```
-C:\Windows\System32\WindowsPowerShell1.0\powershell.exe
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 ```
 
 ### Arguments
